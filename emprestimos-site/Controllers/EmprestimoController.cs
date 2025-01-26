@@ -19,5 +19,10 @@ namespace emprestimos_site.Controllers
             IEnumerable<EmprestimoModel> emprestimos = _db.Emprestimo;
             return View(emprestimos);
         }
+
+        public IActionResult Cadastrar() 
+        {
+            return View();
+        }
     }
 }
