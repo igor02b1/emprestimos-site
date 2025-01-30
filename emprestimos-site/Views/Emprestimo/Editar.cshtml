@@ -1,16 +1,17 @@
 ﻿@model EmprestimoModel;
 
 @{
-   ViewData["title"] = "Cadastrar Empréstimo";  
+    ViewData["title"] = "Editar Empréstimo";
 }
 
 <div class="container bg-black p-5 rounded-3">
 
-    <div class="mb-2 text-center">
-        <h1 class="text-light">Cadastro de Empréstimo</h1>
+    <div class="mb-3 text-center">
+        <h1 class="text-light">Edição de Empréstimo</h1>
     </div>
 
     <form method="post" asp-action="Cadastrar" asp-controller="Emprestimo">
+        <input type="hidden" asp-for=Id />
         <div class="mb-3">
             <label for="Recebedor" class="form-label text-light">Recebedor:</label>
             <input type="text" class="form-control" asp-for="Recebedor" id="Recebedor" placeholder="Quem está recebendo o livro?">
