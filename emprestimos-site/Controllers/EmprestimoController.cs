@@ -21,7 +21,7 @@ namespace emprestimos_site.Controllers
         }
 
         [HttpGet]
-        public IActionResult Cadastrar() 
+        public IActionResult Cadastrar()
         {
             return View();
         }
@@ -29,7 +29,7 @@ namespace emprestimos_site.Controllers
         [HttpGet]
         public IActionResult Editar(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
@@ -39,12 +39,30 @@ namespace emprestimos_site.Controllers
             if (emprestimo == null)
             {
                 return NotFound();
-            }    
+            }
 
             return View(emprestimo);
         }
 
-        [HttpPost]        
+        [HttpGet]
+        public IActionResult Excluir(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            EmprestimoModel emprestimo = _db.Emprestimo.FirstOrDefault(x => x.Id == id);
+
+            if (emprestimo == null)
+            {
+                return NotFound();
+            }
+
+            return View(emprestimo);
+        }
+
+        [HttpPost]
         public IActionResult Cadastrar(EmprestimoModel emprestimo)
         {
             if (ModelState.IsValid)
@@ -58,5 +76,31 @@ namespace emprestimos_site.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Editar(EmprestimoModel emprestimo)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Emprestimo.Update(emprestimo);
+                _db.SaveChanges();
+                return RedirectToAction("Emprestimo");
+            }
+
+            return View(emprestimo);
+        }
+
+        [HttpPost]
+        public IActionResult Excluir(EmprestimoModel emprestimo)
+        {
+            if (emprestimo == null)
+            {
+                return NotFound();
+            }
+
+            _db.Emprestimo.Remove(emprestimo);
+            _db.SaveChanges();
+
+            return RedirectToAction("Emprestimo");
+        }
     }
-}
+}   
